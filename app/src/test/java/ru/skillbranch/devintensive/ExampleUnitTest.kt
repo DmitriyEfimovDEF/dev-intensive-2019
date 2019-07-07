@@ -69,7 +69,7 @@ class ExampleUnitTest {
     @Test
     fun test_date_extensions() {
         val user = User.makeUser("asdf qwer")
-        val userSecond = user.copy(id = "1234", lastVisit = Date().add(50, TimeUnits.SECONDS))
+        val userSecond = user.copy(id = "1234", lastVisit = Date().add(50, TimeUnits.SECOND))
 
         println(
             """
@@ -115,6 +115,6 @@ class ExampleUnitTest {
     @Test
     fun test_getInitials() {
         val pair = Utils.parseFullName("some")
-        println(Utils.getInitials("${pair.first} ${pair.second}"))
+        println(Utils.toInitials("Efimov","Dmitriy"))
     }
 }
