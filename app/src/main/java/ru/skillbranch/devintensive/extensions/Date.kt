@@ -8,23 +8,22 @@ const val MINUTE = SECOND * 60
 const val HOUR = MINUTE * 60
 const val DAY = HOUR * 24
 
-fun Date.format(pattern: String="HH:mm:ss dd:MM:yy"):String{
-    val dateFormate = SimpleDateFormat(pattern, Locale("ru"))
-    return dateFormate.format(this)
+fun Date.format(pattern:String="HH:mm:ss dd.MM.yy"):String{
+    val dateFormat= SimpleDateFormat(pattern,Locale("ru"))
+    return dateFormat.format(this)
 }
-fun Date.add(value: Int, units: TimeUnits): Date {
+fun Date.add(value:Int, units: TimeUnits=TimeUnits.SECOND): Date{
     var time = this.time
-    time += when (units) {
-        TimeUnits.SECOND-> value * SECOND
+
+    time += when(units){
+        TimeUnits.SECOND -> value * SECOND
         TimeUnits.MINUTE -> value * MINUTE
         TimeUnits.HOUR -> value * HOUR
         TimeUnits.DAY -> value * DAY
     }
-    this.time = time
-
+    this.time=time
     return this
 }
-
 
 fun Date.humanizeDiff(date: Date = Date()): String {
     val diff = (date.time - this.time)
@@ -52,56 +51,62 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     return output
 }
 
-enum class TimeUnits {
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY;
-    fun plural(value: Int): String {
-        if (this == SECOND){
-            if (value % 100 in 11..19)
-                return "$value секунд"
-            else {
-                when(value % 10) {
-                    1 -> return "1 секунду"
-                    in 2..4 -> return "$value секунды"
-                    in 5..9, 0 -> return "$value секунд"
-                }
+enum class TimeUnits{
+    SECOND {
+        override fun plural(number: Int):String {
+            //      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            var s:String
+            val datein=number.toString()
+            val index:Int=datein.length-1
+            when(datein[index].toString()){
+                "1" -> { s="секунда" }
+                in "2".."4" -> {s = "секунды"}
+                else -> {s="секунд"}
             }
+            return "$number $s"
         }
-        else if (this == MINUTE){
-            if (value % 100 in 11..19)
-                return "$value минут"
-            else {
-                when (value % 10) {
-                    1 -> return "1 минуту"
-                    in 2..4 -> return "$value минуты"
-                    in 5..9, 0 -> return "$value минут"
-                }
+    },
+    MINUTE {
+        override fun plural(number: Int): String {
+            //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            var s:String
+            val datein=number.toString()
+            val index:Int=datein.length-1
+            when(datein[index].toString()){
+                "1" -> {s="минута"}
+                in "2".."4" -> {s="минуты"}
+                else -> {s="минут"}
             }
+            return "$number $s"
         }
-        else if (this == HOUR){
-            if (value % 100 in 11..19)
-                return "$value часов"
-            else {
-                when (value % 10) {
-                    1 -> return "1 час"
-                    in 2..4 -> return "$value часа"
-                    in 5..9, 0 -> return "$value часов"
-                }
+    },
+    HOUR {
+        override fun plural(number: Int): String {
+            //      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            var s:String
+            val datein=number.toString()
+            val index:Int=datein.length-1
+            when(datein[index].toString()){
+                "1" -> {s="час"}
+                in "2".."4" -> {s="часа"}
+                else -> {s="часов"}
             }
+            return "$number $s"
         }
-        else {
-            if (value % 100 in 11..19)
-                return "$value дней"
-            else {
-                when (value % 10) {
-                    1 -> return "1 день"
-                    in 2..4 -> return "$value дня"
-                    in 5..9, 0 -> return "$value дней"
-                }
+    },
+    DAY {
+        override fun plural(number: Int): String {
+            //    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            var s:String
+            val datein=number.toString()
+            val index:Int=datein.length-1
+            when(datein[index].toString()){
+                "1" -> {s="день"}
+                in "2".."4" -> {s="дня"}
+                else -> {s="дней"}
             }
+            return "$number $s"
         }
-        return ""
-    }
+    };
+    abstract fun plural(number:Int):String
 }
