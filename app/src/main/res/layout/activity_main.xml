@@ -26,7 +26,7 @@
             android:layout_height="0dp"
             android:scaleType="fitCenter"
             android:contentDescription="@string/empty.string"
-            android:src="@drawable/bite_my_ass"/>
+            android:src="@drawable/bender_dance"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
