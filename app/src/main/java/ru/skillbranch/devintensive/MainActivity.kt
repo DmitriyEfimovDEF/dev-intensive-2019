@@ -41,7 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         textTxt.text = benderObj.askQuestion()
 
-        sendBtn.setOnClickListener { sendAnswer() }
+        sendBtn.setOnClickListener {
+            sendAnswer()
+            hideKeyboard()
+        }
 
         messageEt.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
