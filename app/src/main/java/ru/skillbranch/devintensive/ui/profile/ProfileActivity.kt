@@ -36,8 +36,8 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private lateinit var viewModel: ProfileViewModel
-    var isEditMode = false
-    lateinit var viewFields : Map<String, TextView>
+    private var isEditMode = false
+    private lateinit var viewFields : Map<String, TextView>
 
     private lateinit var repositoryTextWatcher: TextWatcher
     var isRepoValid = true

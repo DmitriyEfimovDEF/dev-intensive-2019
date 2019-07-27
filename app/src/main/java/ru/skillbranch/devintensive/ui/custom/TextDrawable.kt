@@ -90,7 +90,8 @@ class TextDrawable private constructor(builder: Builder) : ShapeDrawable() {
         val height = if (this.height < 0) r.height() else this.height
         val fontSize = if (this.fontSize < 0) Math.min(width, height) / 2 else this.fontSize
         textPaint.textSize = fontSize.toFloat()
-        canvas.drawText(text,
+        canvas.drawText(
+            text ?: return,
             (width / 2).toFloat(), height / 2 - (textPaint.descent() + textPaint.ascent()) / 2, textPaint)
 
         canvas.restoreToCount(count)

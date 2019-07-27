@@ -114,9 +114,8 @@ enum class Counter(private val second: String, private val minute: String, priva
 }
 
 fun getPluralForm(amount: Int, units: TimeUnits): String {
-    val posAmount = abs(amount) % 100
 
-    return when(posAmount){
+    return when(val posAmount = abs(amount) % 100){
         1 -> Counter.ONE.get(units)
         in 2..4 -> Counter.FEW.get(units)
         0, in 5..19 -> Counter.MANY.get(units)

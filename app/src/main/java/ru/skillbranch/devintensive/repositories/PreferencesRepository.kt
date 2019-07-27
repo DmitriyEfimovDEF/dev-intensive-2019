@@ -76,7 +76,7 @@ object PreferencesRepository {
         apply()
     }
 
-    fun getInitials(): Pair<String, String> {
+    fun getInitials(): Pair<String?, String?> {
         return prefs.getString(FIRST_NAME, "") to prefs.getString(LAST_NAME, "")
     }
 

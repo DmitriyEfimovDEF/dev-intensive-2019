@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var benderObj: Bender
 
+    @SuppressLint("LogConditional")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -87,11 +89,12 @@ class MainActivity : AppCompatActivity() {
         Log.d("M_MainActivity", "onDestroy")
     }
 
+    @SuppressLint("LogConditional")
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putString("STATUS", benderObj.status.name)
         outState?.putString("QUESTION", benderObj.question.name)
         outState?.putInt("WRONG_ANSWER", benderObj.wrongAnswer)
-        super.onSaveInstanceState(outState)
+        super.onSaveInstanceState(outState ?: return)
         Log.d("M_MainActivity", "onSaveInstanceState ${benderObj.status.name} ${benderObj.question.name}")
     }
 
