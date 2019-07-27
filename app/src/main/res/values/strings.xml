@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">Dev-intensive</string>
-    <string name="profile_label_rating">Рейтинг</string>
-    <string name="profile_label_respect">Уважение</string>
-    <string name="profile_hint_repository">Репозиторий</string>
-    <string name="profile_hint_about">О себе</string>
-    <string name="profile_hint_last_name">Фамилия</string>
-    <string name="profile_hint_first_name">Имя</string>
+    <string name="app_name" translatable="false">devint2019</string>
+    <string name="bender_asks" translatable="false">Bender Asks</string>
+    <string name="input.text" translatable="false">Введите текст</string>
+    <string name="empty.string" translatable="false"/>
+
+    <string name="profile_label_rating" translatable="false">Рейтинг</string>
+    <string name="profile_label_respect" translatable="false">Уважение</string>
+    <string name="profile_hint_repository" translatable="false">Репозиторий</string>
+    <string name="profile_hint_about" translatable="false">О себе</string>
+    <string name="profile_hint_last_name" translatable="false">Фамилия</string>
+    <string name="profile_hint_first_name" translatable="false">Имя</string>
 </resources>

@@ -2,7 +2,11 @@ package ru.skillbranch.devintensive.models
 
 import androidx.core.text.isDigitsOnly
 
-class Bender(var status: Status = Status.NORMAL, var question: Question = Question.NAME) {
+class Bender(
+    var status: Status = Status.NORMAL,
+    var question: Question = Question.NAME,
+    val wrongAnswer: Int
+) {
 
     fun askQuestion(): String = when (question) {
         Question.NAME -> Question.NAME.question

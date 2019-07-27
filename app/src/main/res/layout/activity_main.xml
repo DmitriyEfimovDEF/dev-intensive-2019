@@ -16,7 +16,7 @@
             android:textColor="@color/color_gray_dark"
             android:text="@string/bender_asks"
             android:gravity="center"
-            android:textSize="@dimen/font_large_24"
+            android:textSize="@dimen/font_large_20"
     />
 
     <ImageView
