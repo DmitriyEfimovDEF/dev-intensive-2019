@@ -1,61 +1,139 @@
 package ru.skillbranch.devintensive.utils
 
+import ru.skillbranch.devintensive.ui.profile.ProfileActivity
+
 object Utils {
+
     fun parseFullName(fullName: String?): Pair<String?, String?> {
-        val parts: List<String>? = fullName?.split(" ")
-        var firstName:String? = null
-        var lastName:String? = null
-        if (parts?.getOrNull(0) != "")
-            firstName = parts?.getOrNull(0)
-        if (parts?.getOrNull(1) != "")
-            lastName = parts?.getOrNull(1)
-        return Pair(firstName, lastName)
+
+        if (fullName.isNullOrBlank())
+            return null to null
+
+        val parts: List<String>? = fullName.split(" ")
+
+        var firstName = parts?.getOrNull(0)
+        var lastName = parts?.getOrNull(1)
+
+        if (firstName.isNullOrBlank())
+            firstName = null
+
+        if (lastName.isNullOrBlank())
+            lastName = null
+
+        return firstName to lastName
     }
 
-    fun transliteration(payload: String, divider: String = " "): String {
-        var output = ""
-        payload.forEach {
-            output+=when(it) {
-                'а', 'А' -> {if (it == 'а') "a" else "A"}
-                'б', 'Б' -> {if (it == 'б') "b" else "B"}
-                'в', 'В' -> {if (it == 'в') "v" else "V"}
-                'г', 'Г' -> {if (it == 'г') "g" else "G"}
-                'д', 'Д' -> {if (it == 'д') "d" else "D"}
-                'е', 'Е', 'Ё', 'ё', 'Э', 'э' -> {if (it == 'е' || it == 'ё' || it == 'э') "e" else "E"}
-                'ж', 'Ж' -> {if (it == 'ж') "zh" else "Zh"}
-                'з', 'З' -> {if (it == 'з') "z" else "Z"}
-                'и', 'И', 'й', 'Й', 'ы' -> {if (it == 'й' || it == 'и' || it == 'ы') "i" else "I"}
-                'к', 'К' -> {if (it == 'к') "k" else "K"}
-                'л', 'Л' -> {if (it == 'л') "l" else "L"}
-                'м', 'М' -> {if (it == 'м') "m" else "M"}
-                'н', 'Н' -> {if (it == 'н') "n" else "N"}
-                'о', 'О' -> {if (it == 'о') "o" else "O"}
-                'п', 'П' -> {if (it == 'п') "p" else "P"}
-                'р', 'Р' -> {if (it == 'р') "r" else "R"}
-                'с', 'С' -> {if (it == 'с') "s" else "S"}
-                'т', 'Т' -> {if (it == 'т') "t" else "T"}
-                'у', 'У' -> {if (it == 'у') "u" else "U"}
-                'ф', 'Ф' -> {if (it == 'ф') "f" else "F"}
-                'х', 'Х' -> {if (it == 'х') "h" else "H"}
-                'ц', 'Ц' -> {if (it == 'ц') "c" else "C"}
-                'ч', 'Ч' ->  {if (it == 'ч') "ch" else "Ch"}
-                'ш', 'Ш', 'Щ', 'щ' -> {if (it == 'ш' || it == 'щ') "sh" else "Sh"}
-                'ъ', 'ь' -> ""
-                'ю', 'Ю' -> {if (it == 'ю') "yu" else "Yu"}
-                'я', 'Я' -> {if (it == 'я') "ya" else "Ya"}
-                ' ' -> divider
-                else -> it.toString()
-            }
-        }
-        return output
-    }
     fun toInitials(firstName: String?, lastName: String?): String? {
-        var output: String?
-        if ((firstName?.replace(" ", "") == "" && lastName?.replace(" ", "") == "") ||
-            (firstName == null && lastName == null))
-            return null
-        else
-            return "${firstName?.replace(" ", "")?.getOrNull(0) ?: ""}${lastName?.replace(" ", "")?.getOrNull(0)
-                ?: ""}".toUpperCase()
+        val first = if (firstName.isNullOrBlank()) null else firstName.first().toUpperCase().toString()
+        val last = if (lastName.isNullOrBlank()) null else lastName.first().toUpperCase().toString()
+
+        return if (first == null && last == null) null else (first ?: "") + (last ?: "")
     }
+
+    private val tm = mapOf(
+        'а' to "a",
+        'б' to "b",
+        'в' to "v",
+        'г' to "g",
+        'д' to "d",
+        'е' to "e",
+        'ё' to "e",
+        'ж' to "zh",
+        'з' to "z",
+        'и' to "i",
+        'й' to "i",
+        'к' to "k",
+        'л' to "l",
+        'м' to "m",
+        'н' to "n",
+        'о' to "o",
+        'п' to "p",
+        'р' to "r",
+        'с' to "s",
+        'т' to "t",
+        'у' to "u",
+        'ф' to "f",
+        'х' to "h",
+        'ц' to "c",
+        'ч' to "ch",
+        'ш' to "sh",
+        'щ' to "sh'",
+        'ъ' to "",
+        'ы' to "i",
+        'ь' to "",
+        'э' to "e",
+        'ю' to "yu",
+        'я' to "ya"
+    )
+
+    fun transliteration(payload: String, divider: String = " ") = buildString {
+        payload.forEach {
+            append(
+                when {
+                    it == ' ' -> divider
+                    it.isUpperCase() -> tm[it.toLowerCase()]?.capitalize() ?: it.toString()
+                    else -> tm[it] ?: it.toString()
+                }
+            )
+        }
+    }
+
+    private val exceptOf = setOf(
+        "enterprise",
+        "features",
+        "topics",
+        "collections",
+        "trending",
+        "events",
+        "marketplace",
+        "pricing",
+        "nonprofit",
+        "customer-stories",
+        "security",
+        "login",
+        "join")
+
+    fun isRepoValid(repo: String): Boolean {
+        if (repo.endsWith("/")) {
+            return false
+        }
+
+        val httpsStart = repo.startsWith("https://github.com/") || repo.startsWith("https://www.github.com/")
+        if (httpsStart) {
+            val splitted = repo.split("/").filter { it.isNotEmpty() }
+
+            if (splitted.size != 3)
+                return false
+
+            exceptOf.forEach {
+                if (splitted[2] == it)
+                    return false
+            }
+
+            return true
+
+        }
+
+        val wwwStart = repo.startsWith("www.github.com") || repo.startsWith("github.com")
+
+        if (wwwStart) {
+            val splitted = repo.split("/").filter { it.isNotEmpty() }
+
+            if (splitted.size != 2)
+                return false
+
+            exceptOf.forEach {
+                if (splitted[1] == it)
+                    return false
+            }
+
+            return true
+        }
+
+        return false
+    }
+
+
+
 }
+
