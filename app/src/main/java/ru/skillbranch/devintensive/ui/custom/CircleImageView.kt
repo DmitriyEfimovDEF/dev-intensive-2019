@@ -24,6 +24,8 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.ColorFilter
 import android.view.View
 import androidx.core.content.ContextCompat
+import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.roundToInt
 
 
@@ -31,7 +33,7 @@ class CircleImageView : ImageView {
 
     companion object {
 
-        private val SCALE_TYPE = ImageView.ScaleType.CENTER_CROP
+        private val SCALE_TYPE = ScaleType.CENTER_CROP
 
         private val BITMAP_CONFIG = Bitmap.Config.ARGB_8888
         private const val COLORDRAWABLE_DIMENSION = 2
@@ -300,13 +302,13 @@ class CircleImageView : ImageView {
 
         mBorderRect.set(calculateBounds())
         mBorderRadius =
-            Math.min((mBorderRect.height() - mBorderWidth) / 2.0f, (mBorderRect.width() - mBorderWidth) / 2.0f)
+            min((mBorderRect.height() - mBorderWidth) / 2.0f, (mBorderRect.width() - mBorderWidth) / 2.0f)
 
         mDrawableRect.set(mBorderRect)
         if (mBorderWidth > 0) {
             mDrawableRect.inset(mBorderWidth - 1.0f, mBorderWidth - 1.0f)
         }
-        mDrawableRadius = Math.min(mDrawableRect.height() / 2.0f, mDrawableRect.width() / 2.0f)
+        mDrawableRadius = min(mDrawableRect.height() / 2.0f, mDrawableRect.width() / 2.0f)
 
         applyColorFilter()
         updateShaderMatrix()
@@ -317,7 +319,7 @@ class CircleImageView : ImageView {
         val availableWidth = width - paddingLeft - paddingRight
         val availableHeight = height - paddingTop - paddingBottom
 
-        val sideLength = Math.min(availableWidth, availableHeight)
+        val sideLength = min(availableWidth, availableHeight)
 
         val left = paddingLeft + (availableWidth - sideLength) / 2f
         val top = paddingTop + (availableHeight - sideLength) / 2f
@@ -352,10 +354,7 @@ class CircleImageView : ImageView {
     }
 
     private fun inTouchableArea(x: Float, y: Float): Boolean {
-        return Math.pow((x - mBorderRect.centerX()).toDouble(), 2.0) + Math.pow(
-            (y - mBorderRect.centerY()).toDouble(),
-            2.0
-        ) <= Math.pow(mBorderRadius.toDouble(), 2.0)
+        return (x - mBorderRect.centerX()).toDouble().pow(2.0) + (y - mBorderRect.centerY()).toDouble().pow(2.0) <= Math.pow(mBorderRadius.toDouble(), 2.0)
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

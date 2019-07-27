@@ -8,7 +8,6 @@ import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.preference.PreferenceManager
-import android.util.TypedValue
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import ru.skillbranch.devintensive.App
@@ -80,7 +79,7 @@ object PreferencesRepository {
         return prefs.getString(FIRST_NAME, "") to prefs.getString(LAST_NAME, "")
     }
 
-    fun getInitialsDrawable(initials: Pair<String, String>): Drawable {
+    fun getInitialsDrawable(initials: Pair<String?, String?>): Drawable {
         val data = Utils.toInitials(initials.first, initials.second)
         return genInitialsDrawable(data!!)
     }

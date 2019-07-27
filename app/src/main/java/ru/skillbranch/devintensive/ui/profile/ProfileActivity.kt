@@ -1,31 +1,21 @@
 package ru.skillbranch.devintensive.ui.profile
 
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile_constraint.*
-import ru.skillbranch.devintensive.models.Profile
-import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
-import com.google.android.material.textfield.TextInputLayout
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.utils.Utils
-import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.activity_profile_constraint.et_about
-import kotlinx.android.synthetic.main.activity_profile_constraint.et_first_name
-import kotlinx.android.synthetic.main.activity_profile_constraint.et_last_name
-import kotlinx.android.synthetic.main.activity_profile_constraint.et_repository
-import kotlinx.android.synthetic.main.activity_profile_constraint.iv_avatar
-import kotlinx.android.synthetic.main.activity_profile_constraint.tv_rank
-
+import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -60,10 +50,10 @@ class ProfileActivity : AppCompatActivity() {
         et_repository.removeTextChangedListener(repositoryTextWatcher)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putBoolean(IS_EDIT_MODE, isEditMode)
-        outState?.putBoolean(IS_REPO_VALID, isRepoValid)
+        outState.putBoolean(IS_EDIT_MODE, isEditMode)
+        outState.putBoolean(IS_REPO_VALID, isRepoValid)
     }
 
     private fun initViewModel() {
