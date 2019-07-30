@@ -3,6 +3,7 @@ package ru.skillbranch.devintensive.ui.profile
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -159,10 +160,17 @@ class ProfileActivity : AppCompatActivity() {
 
         with (btn_edit) {
             val filter:  ColorFilter? =  if (isEdit) {
-                PorterDuffColorFilter(
-                    resources.getColor(R.color.color_accent, theme),
-                    PorterDuff.Mode.SRC_IN
-                )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    PorterDuffColorFilter(
+                        resources.getColor(android.R.color.white, theme),
+                        PorterDuff.Mode.SRC_IN
+                    )
+                } else {
+                    PorterDuffColorFilter(
+                        resources.getColor(android.R.color.white),
+                        PorterDuff.Mode.SRC_IN
+                    )
+                }
             } else {
                 null
             }

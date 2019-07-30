@@ -6,6 +6,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
+import android.text.TextPaint
 import android.util.AttributeSet
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
@@ -13,8 +15,6 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatImageView
 import ru.skillbranch.devintensive.R
 import kotlin.math.min
-import android.text.TextPaint
-import android.util.Log
 import kotlin.math.roundToInt
 
 
@@ -89,7 +89,12 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     fun setBorderColor(@ColorRes colorId: Int) {
-        setIntBorderColor(resources.getColor(colorId, context.theme))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setIntBorderColor(resources.getColor(colorId, context.theme))
+        } else {
+            setIntBorderColor(resources.getColor(colorId))
+
+        }
     }
 
     fun setBorderColor(hex:String){
@@ -217,7 +222,7 @@ class CircleImageView @JvmOverloads constructor(
             return
         }
 
-        bitmapShader = BitmapShader(bitmap!!, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        bitmapShader = BitmapShader(bitmap ?: return, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
 
         bitmapPaint.isAntiAlias = true
         bitmapPaint.shader = bitmapShader
@@ -232,7 +237,7 @@ class CircleImageView @JvmOverloads constructor(
         with(circleBackgroundPaint) {
             style = Paint.Style.FILL
             isAntiAlias = true
-            color = Color.TRANSPARENT
+            color = Color.WHITE
         }
 
         bitmapHeight = (bitmap ?: return).height
