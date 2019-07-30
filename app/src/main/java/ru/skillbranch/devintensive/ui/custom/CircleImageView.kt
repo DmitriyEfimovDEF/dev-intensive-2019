@@ -61,7 +61,7 @@ class CircleImageView @JvmOverloads constructor(
         val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0)
 
         borderWidthPx = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, borderWidthPx)
-        borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
+        borderColor = DEFAULT_BORDER_COLOR
         text = a.getString(R.styleable.CircleImageView_cv_text)
 
         textPaint.textSize = 46f * resources.displayMetrics.scaledDensity
@@ -237,7 +237,7 @@ class CircleImageView @JvmOverloads constructor(
         with(circleBackgroundPaint) {
             style = Paint.Style.FILL
             isAntiAlias = true
-            color = Color.WHITE
+            color = Color.TRANSPARENT
         }
 
         bitmapHeight = (bitmap ?: return).height
