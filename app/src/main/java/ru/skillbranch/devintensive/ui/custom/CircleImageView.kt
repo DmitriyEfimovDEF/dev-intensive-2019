@@ -98,7 +98,7 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     fun setBorderColor(hex:String){
-        setIntBorderColor(Integer.parseInt(hex,16))
+        setIntBorderColor(Color.parseColor(hex))
     }
 
     private fun convertDpToPx(dp:Int):Int = (dp * context.applicationContext.resources.displayMetrics.density + 0.5f).toInt()
