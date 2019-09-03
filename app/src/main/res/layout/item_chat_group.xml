@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_size"
+        android:padding="@dimen/spacing_normal_16"
+        android:background="?attr/colorItemView">
+
+    <ru.skillbranch.devintensive.ui.custom.CircleImageView
+            android:id="@+id/iv_avatar_group"
+            android:layout_width="@dimen/avatar_item_size"
+            android:layout_height="@dimen/avatar_item_size"
+            android:src="@drawable/ic_avatar"
+            app:cv_borderColor="@color/color_accent"
+            app:cv_borderWidth="2dp"
+            android:layout_marginRight="@dimen/spacing_normal_16"
+            android:layout_alignParentLeft="true"/>
+
+
+    <TextView
+            android:id="@+id/tv_title_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="chat title"
+            android:textColor="?attr/colorTitle"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/iv_avatar_group"
+            android:layout_toLeftOf="@+id/tv_date_group"
+            android:layout_marginLeft="@dimen/spacing_normal_16"
+            android:maxLines="1"/>
+
+    <TextView
+            android:id="@+id/tv_message_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="John Doe"
+            android:textColor="?attr/colorTitle"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/iv_avatar_group"
+            android:layout_below="@+id/tv_title_group"
+            android:layout_marginLeft="@dimen/spacing_normal_16"
+            android:layout_marginRight="@dimen/spacing_tiny_4"/>
+
+    <TextView
+            android:id="@+id/tv_message_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Плохо спал"
+            android:textColor="?attr/colorText"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/tv_message_author"
+            android:layout_toLeftOf="@+id/tv_counter_group"
+            android:layout_below="@+id/tv_title_group"
+            android:layout_marginRight="@dimen/spacing_normal_16"/>
+
+    <TextView
+            android:id="@+id/tv_date_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorText"
+            android:textSize="10sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            tools:text="18:00"/>
+
+    <TextView
+            android:id="@+id/tv_counter_group"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/counter_size"
+            android:background="@drawable/bg_counter"
+            android:minWidth="@dimen/counter_size"
+            android:gravity="center"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textSize="@dimen/font_size_10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/white"
+            tools:text="11"/>
+
+
+</RelativeLayout>
