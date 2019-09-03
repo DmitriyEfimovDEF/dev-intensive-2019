@@ -1,22 +1,31 @@
 package ru.skillbranch.devintensive.ui.profile
 
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.os.Build
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile_constraint.*
-import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
-import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
+import com.google.android.material.textfield.TextInputLayout
+import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.utils.Utils
+import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile_constraint.et_about
+import kotlinx.android.synthetic.main.activity_profile_constraint.et_first_name
+import kotlinx.android.synthetic.main.activity_profile_constraint.et_last_name
+import kotlinx.android.synthetic.main.activity_profile_constraint.et_repository
+import kotlinx.android.synthetic.main.activity_profile_constraint.iv_avatar
+import kotlinx.android.synthetic.main.activity_profile_constraint.tv_rank
+
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -27,8 +36,8 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private lateinit var viewModel: ProfileViewModel
-    private var isEditMode = false
-    private lateinit var viewFields : Map<String, TextView>
+    var isEditMode = false
+    lateinit var viewFields : Map<String, TextView>
 
     private lateinit var repositoryTextWatcher: TextWatcher
     var isRepoValid = true
@@ -51,10 +60,10 @@ class ProfileActivity : AppCompatActivity() {
         et_repository.removeTextChangedListener(repositoryTextWatcher)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(IS_EDIT_MODE, isEditMode)
-        outState.putBoolean(IS_REPO_VALID, isRepoValid)
+        outState?.putBoolean(IS_EDIT_MODE, isEditMode)
+        outState?.putBoolean(IS_REPO_VALID, isRepoValid)
     }
 
     private fun initViewModel() {
@@ -160,17 +169,10 @@ class ProfileActivity : AppCompatActivity() {
 
         with (btn_edit) {
             val filter:  ColorFilter? =  if (isEdit) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PorterDuffColorFilter(
-                        resources.getColor(android.R.color.white, theme),
-                        PorterDuff.Mode.SRC_IN
-                    )
-                } else {
-                    PorterDuffColorFilter(
-                        resources.getColor(android.R.color.white),
-                        PorterDuff.Mode.SRC_IN
-                    )
-                }
+                PorterDuffColorFilter(
+                    resources.getColor(R.color.color_accent, theme),
+                    PorterDuff.Mode.SRC_IN
+                )
             } else {
                 null
             }

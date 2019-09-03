@@ -41,7 +41,7 @@ class ProfileViewModel: ViewModel() {
 
     fun updateInitialsDrawable() {
         val initials = repository.getInitials()
-        if ((initials.first?.isNotEmpty() ?: return) || (initials.second?.isNotEmpty() ?: return)) {
+        if (initials.first.isNotEmpty() || initials.second.isNotEmpty()) {
             initialsDrawable.value = repository.getInitialsDrawable(initials)
         }
     }
@@ -54,7 +54,7 @@ class ProfileViewModel: ViewModel() {
             appTheme.value = AppCompatDelegate.MODE_NIGHT_YES
         }
 
-        repository.saveAppTheme(appTheme.value ?: return)
+        repository.saveAppTheme(appTheme.value!!)
     }
 
 }
